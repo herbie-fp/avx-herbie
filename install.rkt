@@ -21,5 +21,5 @@
   (define build-location (build-path this-collection-path))
   (define lib-name (path-replace-extension "avx-intrinsics.so" (system-type 'so-suffix)))
   (define lib-location (build-path (if user-specific? (find-user-lib-dir) (find-lib-dir)) lib-name))
-  (call-and-wait (string-append "gcc " (path->string build-location) "\\avx-intrinsics.c -mavx -shared -o " (path->string lib-location)))
+  (call-and-wait (string-append "gcc " (path->string build-location) "/avx-intrinsics.c -mavx -shared -o " (path->string lib-location)))
 )
