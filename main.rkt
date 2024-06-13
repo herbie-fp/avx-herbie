@@ -11,10 +11,13 @@
 (define rsqrt_f32 (get-ffi-obj "rsqrt_f32" "avx-intrinsics" (_fun _float -> _float)))
 (define rsqrt_f64 (get-ffi-obj "rsqrt_f64" "avx-intrinsics" (_fun _double -> _double)))
 
-(define-accelerator-impl recip recip.f32 (binary32) binary32 recip_f32)
-(define-accelerator-impl recip recip.f64 (binary64) binary64 recip_f64)
-(define-accelerator-impl rsqrt rsqrt.f32 (binary32) binary32 rsqrt_f32)
-(define-accelerator-impl rsqrt rsqrt.f64 (binary64) binary64 rsqrt_f64)
+(define-accelerator (avx-recip real) real (lambda (x) (/ 1 x)))
+(define-accelerator (avx-rsqrt real) real (lambda (x) (/ 1 (sqrt x))))
+
+(define-accelerator-impl avx-recip recip.f32 (binary32) binary32 recip_f32)
+(define-accelerator-impl avx-recip recip.f64 (binary64) binary64 recip_f64)
+(define-accelerator-impl avx-rsqrt rsqrt.f32 (binary32) binary32 rsqrt_f32)
+(define-accelerator-impl avx-rsqrt rsqrt.f64 (binary64) binary64 rsqrt_f64)
 
 ;; Notice
 ;; To install (from within the package directory):
